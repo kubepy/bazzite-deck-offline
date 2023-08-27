@@ -99,7 +99,7 @@ add `oci-archive` entry to `/etc/containers/policy.json`
             ]
         },
 ```
-
+For example:
 ```
 {
     "default": [
