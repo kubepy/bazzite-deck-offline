@@ -82,6 +82,11 @@ Install ublue-os/bazzite-deck
 ```
 Grub -> Install ublue-os/bazzite-deck
 ```
+sudo 
+(Optional) After install complete and want to change gamescope mode autologin
+```
+just enable-gamescope-autologin
+```
 
 (Optional) After install complete and want to change back to online registry
 ```
