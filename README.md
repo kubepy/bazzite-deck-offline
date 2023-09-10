@@ -15,7 +15,7 @@ tmux
 
 Download offline bazzite-deck image rename to oci.img (~4.1GB)
 ```
-skopeo copy --all docker://ghcr.io/ublue-os/bazzite-deck:38 oci-archive:oci.img
+skopeo copy --all --remove-signatures docker://ghcr.io/ublue-os/bazzite-deck:38 oci-archive:oci.img
 ```
 
 
