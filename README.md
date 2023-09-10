@@ -82,7 +82,7 @@ Install ublue-os/bazzite-deck
 ```
 Grub -> Install ublue-os/bazzite-deck
 ```
-sudo 
+
 (Optional) After install complete and want to change gamescope mode autologin
 ```
 just enable-gamescope-autologin
@@ -198,5 +198,6 @@ For example:
 
 Use `sudo rpm-ostree rebase --experimental ostree-unverified-image:oci-archive:/tmp/xxx/oci.img` to load the image
 ```
+sudo setenforce 0
 sudo rpm-ostree rebase --experimental ostree-unverified-image:oci-archive:/tmp/xxx/oci.img
 ```
