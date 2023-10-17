@@ -73,9 +73,9 @@ mount -t tmpfs -o remount,size=12G /tmp
 EOLEOL
 ```
 
-Modify bazzite-38-x86_64-*.iso to create bazzite-deck-gnone-38-x86_64-20231012_offline.iso
+Modify bazzite-38-x86_64-*.iso to create bazzite-deck-gnome-38-x86_64-20231012_offline.iso
 ```
-xorriso -indev bazzite-38-x86_64-20231012.iso -outdev bazzite-deck-gnone-38-x86_64-20231012_offline.iso -boot_image any replay -joliet on -system_id LINUX -compliance joliet_long_names -volid Fedora-E-dvd-x86_64-38 -map oci.img oci.img -map kickstart/pre-install.sh kickstart/pre-install.sh -map images/pxeboot/initrd.img images/pxeboot/initrd.img -end
+xorriso -indev bazzite-38-x86_64-20231012.iso -outdev bazzite-deck-gnome-38-x86_64-20231012_offline.iso -boot_image any replay -joliet on -system_id LINUX -compliance joliet_long_names -volid Fedora-E-dvd-x86_64-38 -map oci.img oci.img -map kickstart/pre-install.sh kickstart/pre-install.sh -map images/pxeboot/initrd.img images/pxeboot/initrd.img -end
 ```
 
 Install ublue-os/bazzite-deck
