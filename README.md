@@ -15,14 +15,14 @@ tmux
 
 Download offline bazzite-deck image rename to oci.img (~4.1GB)
 ```
-skopeo copy --all --remove-signatures docker://ghcr.io/ublue-os/bazzite-deck:38 oci-archive:oci.img
+skopeo copy --all --remove-signatures docker://ghcr.io/ublue-os/bazzite-deck-gnome:38 oci-archive:oci.img
 ```
 
 
 Download origin bazzite iso file (~700MB) and extract files kickstart/pre-install.sh and images/pxeboot/initrd.img
 ```
-curl -LO https://github.com/ublue-os/bazzite/releases/download/v1.0.1/bazzite-38-x86_64-20230822.iso
-mount -o loop bazzite-38-x86_64-20230822.iso /mnt
+curl -LO https://github.com/ublue-os/bazzite/releases/download/v1.3.0/bazzite-38-x86_64-20231012.iso
+mount -o loop bazzite-38-x86_64-20231012.iso /mnt
 cp -a /mnt/kickstart .
 cp -a /mnt/images .
 ```
@@ -73,9 +73,9 @@ mount -t tmpfs -o remount,size=12G /tmp
 EOLEOL
 ```
 
-Modify bazzite-38-x86_64-*.iso to create bazzite-deck-38_offline_*.iso
+Modify bazzite-38-x86_64-*.iso to create bazzite-deck-gnone-38-x86_64-20231012_offline.iso
 ```
-xorriso -indev bazzite-38-x86_64-20230822.iso -outdev bazzite-deck-38_offline_20230823.iso -boot_image any replay -joliet on -system_id LINUX -compliance joliet_long_names -volid Fedora-E-dvd-x86_64-38 -map oci.img oci.img -map kickstart/pre-install.sh kickstart/pre-install.sh -map images/pxeboot/initrd.img images/pxeboot/initrd.img -end
+xorriso -indev bazzite-38-x86_64-20231012.iso -outdev bazzite-deck-gnone-38-x86_64-20231012_offline.iso -boot_image any replay -joliet on -system_id LINUX -compliance joliet_long_names -volid Fedora-E-dvd-x86_64-38 -map oci.img oci.img -map kickstart/pre-install.sh kickstart/pre-install.sh -map images/pxeboot/initrd.img images/pxeboot/initrd.img -end
 ```
 
 Install ublue-os/bazzite-deck
@@ -196,8 +196,8 @@ For example:
 }
 ```
 
-Use `sudo rpm-ostree rebase --experimental ostree-unverified-image:oci-archive:/tmp/xxx/oci.img` to load the image
+Use `sudo rpm-ostree rebase --experimental ostree-unverified-image:oci-archive:/tmp/oci.img` to load the image
 ```
 sudo setenforce 0
-sudo rpm-ostree rebase --experimental ostree-unverified-image:oci-archive:/tmp/xxx/oci.img
+sudo rpm-ostree rebase --experimental ostree-unverified-image:oci-archive:/tmp/oci.img
 ```
