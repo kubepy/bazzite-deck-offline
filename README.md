@@ -21,8 +21,8 @@ skopeo copy --all --remove-signatures docker://ghcr.io/ublue-os/bazzite-deck-gno
 
 Download origin bazzite iso file (~700MB) and extract files kickstart/pre-install.sh and images/pxeboot/initrd.img
 ```
-curl -LO https://github.com/ublue-os/bazzite/releases/download/v2.0.2/bazzite-39-x86_64-20231108.iso
-mount -o loop bazzite-39-x86_64-20231108.iso /mnt
+curl -LO https://github.com/ublue-os/bazzite/releases/download/v2.2.0/bazzite-39-x86_64-20240119.iso
+mount -o loop bazzite-39-x86_64-20240119.iso /mnt
 cp -a /mnt/kickstart .
 cp -a /mnt/images .
 ```
@@ -47,7 +47,7 @@ cat << 'EOLEOL' > kickstart/pre-install.sh
 
 set -oue pipefail
 
-DEFAULT_URL="ghcr.io/ublue-os/silverblue-main:38"
+DEFAULT_URL="ghcr.io/ublue-os/silverblue-main:39"
 
 for ARG in `cat /proc/cmdline`; do
     if [[ "${ARG}" =~ ^imageurl= ]]; then
@@ -57,7 +57,10 @@ done
 
 URL=$(echo "${URL:-${DEFAULT_URL}}" | tr "[:upper:]" "[:lower:]")
 
-readonly RELEASE="$(sed "2q;d" "/run/install/repo/.discinfo")"
+RELEASE="$(sed "2q;d" "/run/install/repo/.discinfo")"
+[[ "${RELEASE}" -eq "39" ]] && RELEASE="latest"
+readonly RELEASE
+
 readonly ARCH="$(sed "3q;d" "/run/install/repo/.discinfo")"
 
 cat << EOL > /tmp/ks-urls.txt
@@ -73,9 +76,9 @@ mount -t tmpfs -o remount,size=12G /tmp
 EOLEOL
 ```
 
-Modify bazzite-39-x86_64-*.iso to create bazzite-deck-gnome-39-x86_64-20231112_offline.iso
+Modify bazzite-39-x86_64-*.iso to create bazzite-deck-gnome-39-x86_64-20240119_offline.iso
 ```
-xorriso -indev bazzite-39-x86_64-20231108.iso -outdev bazzite-deck-gnome-39-x86_64-20231112_offline.iso -boot_image any replay -joliet on -system_id LINUX -compliance joliet_long_names -volid Fedora-E-dvd-x86_64-39 -map oci.img oci.img -map kickstart/pre-install.sh kickstart/pre-install.sh -map images/pxeboot/initrd.img images/pxeboot/initrd.img -end
+xorriso -indev bazzite-39-x86_64-20240119.iso -outdev bazzite-deck-gnome-39-x86_64-20240119_offline.iso -boot_image any replay -joliet on -system_id LINUX -compliance joliet_long_names -volid Fedora-E-dvd-x86_64-39 -map oci.img oci.img -map kickstart/pre-install.sh kickstart/pre-install.sh -map images/pxeboot/initrd.img images/pxeboot/initrd.img -end
 ```
 
 Install ublue-os/bazzite-deck
